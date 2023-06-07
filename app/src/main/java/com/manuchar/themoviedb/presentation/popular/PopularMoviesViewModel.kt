@@ -69,7 +69,8 @@ interface PopularMoviesViewModel {
                     }
 
                     _popularMovies.getAndUpdate {
-                        it.filterIsInstance<PopularMoviesItem.Item>().plus(buildList(result))
+                        it.dropLast(1)
+                            .plus(buildList(result))
                     }
                 }
 

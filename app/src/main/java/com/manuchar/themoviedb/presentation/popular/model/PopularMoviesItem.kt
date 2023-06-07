@@ -12,8 +12,7 @@ sealed class PopularMoviesItem(val itemType: Int) {
         val imageUrl: String?,
         val name: String,
         val rating: Double
-    ) :
-        PopularMoviesItem(Types.ITEM.ordinal)
+    ) : PopularMoviesItem(Types.ITEM.ordinal)
 
     object Loading : PopularMoviesItem(Types.LOADING.ordinal)
     object Error : PopularMoviesItem(Types.ERROR.ordinal)
