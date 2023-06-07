@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TheMovieDB</string>
+    <string name="popular_movies_list_error">Try Again</string>
+    <string name="popular_movies_rating">Rating</string>
+</resources>
