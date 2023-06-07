@@ -3,7 +3,6 @@ package com.manuchar.themoviedb.presentation.moviedetails
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.manuchar.themoviedb.databinding.ListItemSimilarMovieBinding
 import com.manuchar.themoviedb.domain.model.MovieModel

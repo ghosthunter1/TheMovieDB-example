@@ -6,7 +6,6 @@ import com.manuchar.themoviedb.data.api.MoviesApi
 import com.manuchar.themoviedb.data.mapper.PopularMoviesMapper
 import com.manuchar.themoviedb.domain.model.MovieModel
 import java.lang.Exception
-import javax.inject.Inject
 
 class MoviePagingSource(
     private val moviesApi: MoviesApi,

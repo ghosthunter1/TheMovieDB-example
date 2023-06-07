@@ -3,7 +3,6 @@ package com.manuchar.themoviedb.data.respository
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.map
 import com.manuchar.themoviedb.utlis.ApiResult
 import com.manuchar.themoviedb.data.api.MoviesApi
 import com.manuchar.themoviedb.data.mapper.PopularMoviesMapper
@@ -11,11 +10,9 @@ import com.manuchar.themoviedb.domain.model.MovieModel
 import com.manuchar.themoviedb.domain.repository.MoviesRepository
 import com.manuchar.themoviedb.domain.model.ResultModel
 import com.manuchar.themoviedb.presentation.MoviePagingSource
-import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
 import javax.inject.Inject
 

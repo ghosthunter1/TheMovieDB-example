@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
-import com.manuchar.themoviedb.R
 
 abstract class BaseActivity<B : ViewBinding> : AppCompatActivity() {
 

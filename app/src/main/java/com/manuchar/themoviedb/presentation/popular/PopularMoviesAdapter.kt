@@ -4,11 +4,8 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.manuchar.themoviedb.databinding.ListItemErrorBinding
 import com.manuchar.themoviedb.databinding.ListItemLoadingBinding
 import com.manuchar.themoviedb.databinding.ListItemPopularMovieBinding
