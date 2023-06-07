@@ -45,7 +45,6 @@ interface MovieDetailsViewModel {
 
         @AssistedFactory
         interface Factory {
-
             fun create(detailArgs: DetailArgs): ViewModel
         }
 

@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
-fun <T> Flow<T>.observeFlows(
+fun <T> Flow<T>.observeFlow(
     lifecycleOwner: LifecycleOwner, consumer: suspend (T) -> Unit
 ) {
     lifecycleOwner.lifecycleScope.launch {

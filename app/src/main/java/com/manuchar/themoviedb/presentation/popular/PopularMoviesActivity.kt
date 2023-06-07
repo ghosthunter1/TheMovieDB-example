@@ -6,7 +6,7 @@ import android.util.Pair
 import android.view.LayoutInflater
 import android.view.View
 import androidx.activity.viewModels
-import com.manuchar.themoviedb.utlis.observeFlows
+import com.manuchar.themoviedb.utlis.observeFlow
 import com.manuchar.themoviedb.databinding.ActivityPopularMoviesBinding
 import com.manuchar.themoviedb.presentation.base.BaseActivity
 import com.manuchar.themoviedb.presentation.moviedetails.MovieDetailActivity
@@ -40,11 +40,11 @@ class PopularMoviesActivity : BaseActivity<ActivityPopularMoviesBinding>() {
 
     private fun setUpViews() {
         views.popularMoviesList.adapter = adapter
-        views.popularMoviesList.addItemDecoration(SpaceItemDecoration(16.dp))
+        views.popularMoviesList.addItemDecoration(SpaceItemDecoration(20.dp,20.dp,16.dp,16.dp))
     }
 
     private fun setUpObservers() {
-        viewModel.out.popularMovies.observeFlows(this) {
+        viewModel.out.popularMovies.observeFlow(this) {
             adapter.submitList(it)
         }
 

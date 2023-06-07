@@ -6,7 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 
 
-class SpaceItemDecoration(private val space: Int) : ItemDecoration() {
+class SpaceItemDecoration(
+    private val top: Int = 0,
+    private val bottom: Int = 0,
+    private val start: Int = 0,
+    private val end: Int = 0
+) : ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -14,10 +19,10 @@ class SpaceItemDecoration(private val space: Int) : ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        outRect.left = space
-        outRect.right = space
-        outRect.bottom = space
-        outRect.top = space
+        outRect.left = start
+        outRect.right = end
+        outRect.bottom = bottom
+        outRect.top = top
 
     }
 }

@@ -11,7 +11,7 @@ import com.manuchar.themoviedb.presentation.base.BaseActivity
 import com.manuchar.themoviedb.presentation.moviedetails.model.DetailArgs
 import com.manuchar.themoviedb.utlis.SpaceItemDecoration
 import com.manuchar.themoviedb.utlis.dp
-import com.manuchar.themoviedb.utlis.observeFlows
+import com.manuchar.themoviedb.utlis.observeFlow
 import com.manuchar.themoviedb.utlis.drawFromUrl
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -45,16 +45,16 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailsBinding>() {
 
 
     private fun setUpViews() {
-        views.similarMoviesList.addItemDecoration(SpaceItemDecoration(10.dp))
+        views.similarMoviesList.addItemDecoration(SpaceItemDecoration(10.dp,10.dp,16.dp,16.dp))
         views.similarMoviesList.adapter = similarMoviesAdapter
     }
 
     private fun setUpObservers() {
-        viewModel.arguments.observeFlows(this) {
+        viewModel.arguments.observeFlow(this) {
             setUp(it)
         }
 
-        viewModel.out.similarMovies.observeFlows(this) {
+        viewModel.out.similarMovies.observeFlow(this) {
             similarMoviesAdapter.submitData(it)
         }
 
