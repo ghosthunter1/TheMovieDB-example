@@ -28,7 +28,8 @@
 
         <activity
             android:name=".presentation.moviedetails.MovieDetailActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="fullSensor" />
     </application>
 
 </manifest>
