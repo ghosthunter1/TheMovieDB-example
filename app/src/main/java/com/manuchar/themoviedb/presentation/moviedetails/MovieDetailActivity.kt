@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import com.manuchar.themoviedb.databinding.ActivityMovieDetailsBinding
 import com.manuchar.themoviedb.presentation.base.BaseActivity
 import com.manuchar.themoviedb.presentation.moviedetails.model.DetailArgs
+import com.manuchar.themoviedb.utlis.SpaceItemDecoration
+import com.manuchar.themoviedb.utlis.dp
 import com.manuchar.themoviedb.utlis.observeFlows
 import com.manuchar.themoviedb.utlis.drawFromUrl
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,6 +45,7 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailsBinding>() {
 
 
     private fun setUpViews() {
+        views.similarMoviesList.addItemDecoration(SpaceItemDecoration(10.dp))
         views.similarMoviesList.adapter = similarMoviesAdapter
     }
 

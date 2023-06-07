@@ -17,11 +17,7 @@ class SpaceItemDecoration(private val space: Int) : ItemDecoration() {
         outRect.left = space
         outRect.right = space
         outRect.bottom = space
+        outRect.top = space
 
-        if (parent.getChildAdapterPosition(view) == 0) {
-            outRect.top = space
-        } else {
-            outRect.top = 0
-        }
     }
 }
