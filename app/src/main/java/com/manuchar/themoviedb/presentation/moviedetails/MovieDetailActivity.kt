@@ -71,7 +71,13 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailsBinding>() {
         similarMoviesAdapter.setCallBack {
             start(
                 this,
-                DetailArgs(it.id, it.imageUrl, it.name, it.overview, it.averageRating)
+                DetailArgs(
+                    it.id,
+                    it.imageUrl,
+                    it.name,
+                    it.overview,
+                    it.averageRating
+                )
             )
         }
     }
