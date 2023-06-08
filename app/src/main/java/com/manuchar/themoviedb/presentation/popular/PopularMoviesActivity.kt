@@ -40,7 +40,7 @@ class PopularMoviesActivity : BaseActivity<ActivityPopularMoviesBinding>() {
 
     private fun setUpViews() {
         views.popularMoviesList.adapter = adapter
-        views.popularMoviesList.addItemDecoration(SpaceItemDecoration(20.dp,20.dp,16.dp,16.dp))
+        views.popularMoviesList.addItemDecoration(SpaceItemDecoration(20.dp, 20.dp, 16.dp, 16.dp))
     }
 
     private fun setUpObservers() {
@@ -87,7 +87,13 @@ class PopularMoviesActivity : BaseActivity<ActivityPopularMoviesBinding>() {
 
         MovieDetailActivity.start(
             this@PopularMoviesActivity,
-            DetailArgs(item.id, item.imageUrl, item.name, item.overview, item.rating),
+            DetailArgs(
+                item.id,
+                item.imageUrl,
+                item.name,
+                item.overview,
+                item.rating
+            ),
             options
         )
     }

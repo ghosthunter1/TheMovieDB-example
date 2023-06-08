@@ -19,7 +19,10 @@ class PopularMoviesAdapter : ListAdapter<PopularMoviesItem, ViewHolder>(PopularM
 
     private var callBack: CallBack? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
 
         val inflater = LayoutInflater.from(parent.context)
 
@@ -51,7 +54,10 @@ class PopularMoviesAdapter : ListAdapter<PopularMoviesItem, ViewHolder>(PopularM
         return getItem(position)!!.itemType
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int
+    ) {
         when (holder) {
             is PopularMovieViewHolder -> {
                 holder.bind(getItem(position) as PopularMoviesItem.Item)
@@ -60,8 +66,9 @@ class PopularMoviesAdapter : ListAdapter<PopularMoviesItem, ViewHolder>(PopularM
     }
 
 
-    inner class PopularMovieViewHolder(private val binding: ListItemPopularMovieBinding) :
-        ViewHolder(binding.root) {
+    inner class PopularMovieViewHolder(
+        private val binding: ListItemPopularMovieBinding
+    ) : ViewHolder(binding.root) {
 
 
         private val arrayOfPairs = arrayOf<Pair<View, String>>(

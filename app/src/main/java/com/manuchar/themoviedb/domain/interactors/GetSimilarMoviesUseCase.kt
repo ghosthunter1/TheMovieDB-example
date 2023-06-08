@@ -10,6 +10,5 @@ class GetSimilarMoviesUseCase @Inject constructor(
     @IoDispatcher val coroutineContext: CoroutineContext,
     private val moviesApi: MoviesRepository
 ) {
-
     fun invoke(movieId: Long) = moviesApi.getSimilarMovies(movieId).flowOn(coroutineContext)
 }

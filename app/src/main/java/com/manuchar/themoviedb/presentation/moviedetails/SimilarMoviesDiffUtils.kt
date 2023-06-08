@@ -5,7 +5,10 @@ import com.manuchar.themoviedb.domain.model.MovieModel
 
 object SimilarMoviesDiffUtils : DiffUtil.ItemCallback<MovieModel>() {
 
-    override fun areItemsTheSame(oldItem: MovieModel, newItem: MovieModel): Boolean {
+    override fun areItemsTheSame(
+        oldItem: MovieModel,
+        newItem: MovieModel
+    ): Boolean {
         return oldItem == newItem
     }
 

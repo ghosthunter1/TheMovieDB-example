@@ -5,12 +5,15 @@ import com.manuchar.themoviedb.presentation.popular.model.PopularMoviesItem
 
 object PopularMoviesDiffUtils : DiffUtil.ItemCallback<PopularMoviesItem>() {
 
-    override fun areItemsTheSame(oldItem: PopularMoviesItem, newItem: PopularMoviesItem): Boolean {
-        return oldItem == newItem
-    }
+    override fun areItemsTheSame(
+        oldItem: PopularMoviesItem,
+        newItem: PopularMoviesItem
+    ) = oldItem == newItem
+
 
     override fun areContentsTheSame(
-        oldItem: PopularMoviesItem, newItem: PopularMoviesItem
+        oldItem: PopularMoviesItem,
+        newItem: PopularMoviesItem
     ): Boolean {
         if (oldItem is PopularMoviesItem.Item && newItem is PopularMoviesItem.Item) {
             return oldItem.id == newItem.id

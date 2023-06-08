@@ -19,7 +19,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MovieDetailActivity : BaseActivity<ActivityMovieDetailsBinding>() {
 
-
     override val bindingInflater: (LayoutInflater) -> ActivityMovieDetailsBinding
         get() = ActivityMovieDetailsBinding::inflate
 
@@ -34,7 +33,6 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailsBinding>() {
 
     private val similarMoviesAdapter = SimilarMoviesAdapter()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -43,14 +41,13 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailsBinding>() {
         setUpListeners()
     }
 
-
     private fun setUpViews() {
-        views.similarMoviesList.addItemDecoration(SpaceItemDecoration(10.dp,10.dp,16.dp,16.dp))
+        views.similarMoviesList.addItemDecoration(SpaceItemDecoration(10.dp, 10.dp, 16.dp, 16.dp))
         views.similarMoviesList.adapter = similarMoviesAdapter
     }
 
     private fun setUpObservers() {
-        viewModel.arguments.observeFlow(this) {
+        viewModel.out.arguments.observeFlow(this) {
             setUp(it)
         }
 
@@ -79,15 +76,22 @@ class MovieDetailActivity : BaseActivity<ActivityMovieDetailsBinding>() {
         }
     }
 
-
     companion object {
 
         private const val ARGS = "ARGS"
 
-        fun start(context: Context, detailArgs: DetailArgs, options: ActivityOptions? = null) {
-            context.startActivity(Intent(context, MovieDetailActivity::class.java).apply {
-                putExtra(ARGS, detailArgs)
-            }, options?.toBundle())
+        fun start(
+            context: Context,
+            detailArgs: DetailArgs,
+            options: ActivityOptions? = null
+        ) {
+            context
+                .startActivity(
+                    Intent(context, MovieDetailActivity::class.java)
+                        .apply {
+                            putExtra(ARGS, detailArgs)
+                        }, options?.toBundle()
+                )
         }
     }
 }

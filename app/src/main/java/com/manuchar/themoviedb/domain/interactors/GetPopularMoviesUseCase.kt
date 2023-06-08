@@ -10,6 +10,5 @@ class GetPopularMoviesUseCase @Inject constructor(
     @IoDispatcher val coroutineContext: CoroutineContext,
     private val repository: MoviesRepository
 ) {
-
     fun invoke(page: Int) = repository.getPopularMovies(page).flowOn(coroutineContext)
 }

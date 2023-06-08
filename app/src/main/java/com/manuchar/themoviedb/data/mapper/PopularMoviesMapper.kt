@@ -10,7 +10,9 @@ import javax.inject.Inject
 class PopularMoviesMapper @Inject constructor() {
 
     fun convert(popularMoviesResult: ResultApiModel) =
-        ResultModel(movies = popularMoviesResult.movies.map { convert(it) })
+        ResultModel(
+            movies = popularMoviesResult.movies
+            .map { convert(it) })
 
     private fun convert(movieApiModel: MovieApiModel) =
         with(movieApiModel) {

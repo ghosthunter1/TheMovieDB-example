@@ -1,11 +1,13 @@
 package com.manuchar.themoviedb.presentation.popular
 
 import androidx.lifecycle.viewModelScope
+import com.manuchar.themoviedb.data.mapper.MovieUIMapper
 import com.manuchar.themoviedb.utlis.ApiResult
 import com.manuchar.themoviedb.domain.interactors.GetPopularMoviesUseCase
 import com.manuchar.themoviedb.domain.model.MovieModel
 import com.manuchar.themoviedb.presentation.base.BaseViewModel
 import com.manuchar.themoviedb.presentation.popular.model.PopularMoviesItem
+import com.manuchar.themoviedb.utlis.toRequestedResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -28,13 +30,13 @@ interface PopularMoviesViewModel {
 
     interface Output {
         val popularMovies: StateFlow<List<PopularMoviesItem>>
-
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @HiltViewModel
     class ViewModel @Inject constructor(
-        private val getPopularMoviesUseCase: GetPopularMoviesUseCase
+        private val getPopularMoviesUseCase: GetPopularMoviesUseCase,
+        private val movieUIMapper: MovieUIMapper
     ) : BaseViewModel(), Input, Output {
 
         val input: Input = this
@@ -42,7 +44,7 @@ interface PopularMoviesViewModel {
 
         private val moviesFlow = MutableSharedFlow<Unit>(replay = 1)
         private var currentPage = 1
-        private var isLoading = false
+        private var isLoading = true
 
         private val _popularMovies: MutableStateFlow<List<PopularMoviesItem>> =
             MutableStateFlow(emptyList())
@@ -56,13 +58,10 @@ interface PopularMoviesViewModel {
             viewModelScope.launch {
 
                 merge(onInit(), moviesFlow).flatMapLatest {
-                    getPopularMoviesUseCase.invoke(currentPage)
+                    getPopularMoviesUseCase.invoke(currentPage).toRequestedResult()
                 }.collectLatest { result ->
                     managePaging(result)
-                    _popularMovies.getAndUpdate {
-                        it.dropLast(1)
-                            .plus(buildList(result))
-                    }
+                    refreshUI(result)
                 }
 
             }
@@ -90,15 +89,19 @@ interface PopularMoviesViewModel {
             }
         }
 
+        private fun refreshUI(result: ApiResult<List<MovieModel>>) {
+            _popularMovies.getAndUpdate {
+                it.dropLastWhile { item: PopularMoviesItem -> item !is PopularMoviesItem.Item }
+                    .plus(buildList(result))
+                    .distinct()
+            }
+        }
+
         private fun buildList(moviesResponse: ApiResult<List<MovieModel>>): List<PopularMoviesItem> {
 
             return when (moviesResponse) {
                 is ApiResult.ApiSuccess -> {
-                    moviesResponse.data.map { item ->
-                        PopularMoviesItem.Item(
-                            item.id, item.overview, item.imageUrl, item.name, item.averageRating
-                        )
-                    }
+                    movieUIMapper.convert(moviesResponse.data)
                 }
 
                 is ApiResult.ApiLoading -> {

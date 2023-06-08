@@ -12,12 +12,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 
 fun <T> Flow<T>.observeFlow(
-    lifecycleOwner: LifecycleOwner, consumer: suspend (T) -> Unit
+    lifecycleOwner: LifecycleOwner,
+    consumer: suspend (T) -> Unit
 ) {
     lifecycleOwner.lifecycleScope.launch {
         lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -28,9 +32,21 @@ fun <T> Flow<T>.observeFlow(
     }
 }
 
-fun ImageView.drawFromUrl(url: String, corners: Int? = null) {
+fun <T> Flow<T>.toRequestedResult(): Flow<ApiResult<T>> {
+    return map {
+        ApiResult.ApiSuccess(it)
+    }.catch<ApiResult<T>> {
+        emit(ApiResult.ApiException(it))
+    }.onStart { emit(ApiResult.ApiLoading()) }
+}
 
-    val glide = Glide.with(context).load(url).transform(CenterCrop())
+fun ImageView.drawFromUrl(
+    url: String,
+    corners: Int? = null
+) {
+    val glide = Glide.with(context)
+        .load(url)
+        .transform(CenterCrop())
     corners?.let {
         glide.transform(RoundedCorners(it))
     }
@@ -39,7 +55,9 @@ fun ImageView.drawFromUrl(url: String, corners: Int? = null) {
 }
 
 val Int.dp: Int
-    get() = (this * Resources.getSystem().displayMetrics.density).toInt()
+    get() = (this * Resources.getSystem()
+        .displayMetrics.density)
+        .toInt()
 
 
 fun RecyclerView.lastItemReached(consumer: () -> Unit) {

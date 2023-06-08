@@ -5,5 +5,5 @@ import kotlinx.coroutines.flow.flowOf
 
 abstract class BaseViewModel : ViewModel() {
 
-    protected fun onInit() = flowOf(1)
+    protected fun onInit() = flowOf(Unit)
 }

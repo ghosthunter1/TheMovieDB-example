@@ -14,7 +14,8 @@ interface MoviesApi {
 
     @GET("{series_id}/similar")
     suspend fun getSimilarMovies(
-        @Path("series_id") seriesId: Long, @Query("page") page: Int
+        @Path("series_id") seriesId: Long,
+        @Query("page") page: Int
     ): ResultApiModel
 
 }

@@ -40,7 +40,9 @@ interface MovieDetailsViewModel {
         override val arguments: StateFlow<DetailArgs> = _arguments.asStateFlow()
 
         override val similarMovies: Flow<PagingData<MovieModel>> =
-            getSimilarMoviesUseCase.invoke(args.id).cachedIn(viewModelScope)
+            getSimilarMoviesUseCase
+                .invoke(args.id)
+                .cachedIn(viewModelScope)
 
 
         @AssistedFactory
@@ -60,7 +62,6 @@ interface MovieDetailsViewModel {
 
             }
         }
-
 
     }
 

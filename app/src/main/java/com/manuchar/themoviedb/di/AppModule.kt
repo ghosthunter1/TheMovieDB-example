@@ -29,35 +29,42 @@ class AppModule {
     @Singleton
     @Provides
     fun provideRetrofitHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor { chain ->
-            val original = chain.request();
-
-            val request = original.newBuilder()
-                .header(
-                    "Authorization",
-                    BuildConfig.API_KEY
-                )
-                .method(original.method, original.body).build();
-
-            return@addInterceptor chain.proceed(request);
-
-        }.addInterceptor(interceptor).build()
-
+        return OkHttpClient
+            .Builder()
+            .addInterceptor { chain ->
+                val original = chain.request()
+                val request = original
+                    .newBuilder()
+                    .header(
+                        "Authorization",
+                        BuildConfig.API_KEY
+                    )
+                    .method(original.method, original.body)
+                    .build()
+                return@addInterceptor chain.proceed(request)
+            }
+            .addInterceptor(interceptor).build()
     }
 
-    @Singleton
+
     @Provides
     @IoDispatcher
     fun provideCoroutineDispatcher(): CoroutineContext = Dispatchers.IO
 
     @Singleton
     @Provides
-    fun provideRetrofit(httpClient: OkHttpClient): MoviesApi {
-        val retrofit = Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
+    fun provideRetrofit(httpClient: OkHttpClient): Retrofit {
+        return Retrofit
+            .Builder()
+            .baseUrl(BuildConfig.BASE_URL)
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return retrofit.create(MoviesApi::class.java)
     }
+
+    @Singleton
+    @Provides
+    fun provideMoviesApi(retrofit: Retrofit): MoviesApi = retrofit.create(MoviesApi::class.java)
+
 
 }
