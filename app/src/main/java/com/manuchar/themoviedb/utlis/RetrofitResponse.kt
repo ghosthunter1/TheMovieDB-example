@@ -10,7 +10,7 @@ sealed interface ApiResult<T> {
 
     }
 
-    fun onLoading(consumer: (Unit) -> Unit) {
+    fun onLoading(consumer: () -> Unit) {
 
     }
 
@@ -21,8 +21,8 @@ sealed interface ApiResult<T> {
     }
 
     class ApiLoading<T> : ApiResult<T> {
-        override fun onLoading(consumer: (Unit) -> Unit) {
-            consumer.invoke(Unit)
+        override fun onLoading(consumer: () -> Unit) {
+            consumer.invoke()
         }
     }
 
