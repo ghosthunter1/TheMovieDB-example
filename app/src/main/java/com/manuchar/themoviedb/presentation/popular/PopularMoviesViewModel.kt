@@ -3,7 +3,7 @@ package com.manuchar.themoviedb.presentation.popular
 import androidx.lifecycle.viewModelScope
 import com.manuchar.themoviedb.utlis.ApiResult
 import com.manuchar.themoviedb.domain.interactors.GetPopularMoviesUseCase
-import com.manuchar.themoviedb.domain.model.ResultModel
+import com.manuchar.themoviedb.domain.model.MovieModel
 import com.manuchar.themoviedb.presentation.base.BaseViewModel
 import com.manuchar.themoviedb.presentation.popular.model.PopularMoviesItem
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -58,16 +58,7 @@ interface PopularMoviesViewModel {
                 merge(onInit(), moviesFlow).flatMapLatest {
                     getPopularMoviesUseCase.invoke(currentPage)
                 }.collectLatest { result ->
-
-                    result.onSuccess {
-                        isLoading = false
-                        currentPage += 1
-                    }
-
-                    result.onLoading {
-                        isLoading = true
-                    }
-
+                    managePaging(result)
                     _popularMovies.getAndUpdate {
                         it.dropLast(1)
                             .plus(buildList(result))
@@ -86,12 +77,24 @@ interface PopularMoviesViewModel {
             moviesFlow.tryEmit(Unit)
         }
 
+        private fun managePaging(apiResult: ApiResult<List<MovieModel>>) {
+            apiResult.onSuccess {
+                if (it.size == PAGE_SIZE) {
+                    isLoading = false
+                    currentPage += 1
+                }
+            }
 
-        private fun buildList(moviesResponse: ApiResult<ResultModel>): List<PopularMoviesItem> {
+            apiResult.onLoading {
+                isLoading = true
+            }
+        }
+
+        private fun buildList(moviesResponse: ApiResult<List<MovieModel>>): List<PopularMoviesItem> {
 
             return when (moviesResponse) {
                 is ApiResult.ApiSuccess -> {
-                    moviesResponse.data.movies.map { item ->
+                    moviesResponse.data.map { item ->
                         PopularMoviesItem.Item(
                             item.id, item.overview, item.imageUrl, item.name, item.averageRating
                         )
@@ -109,6 +112,10 @@ interface PopularMoviesViewModel {
         }
 
 
+    }
+
+    companion object {
+        const val PAGE_SIZE = 20
     }
 
 

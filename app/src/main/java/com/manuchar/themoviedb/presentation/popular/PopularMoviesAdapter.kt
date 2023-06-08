@@ -86,7 +86,7 @@ class PopularMoviesAdapter : ListAdapter<PopularMoviesItem, ViewHolder>(PopularM
 
     }
 
-    inner class ErrorViewHolder(private val binding: ListItemErrorBinding) :
+    inner class ErrorViewHolder(binding: ListItemErrorBinding) :
         ViewHolder(binding.root) {
 
         init {
@@ -97,7 +97,7 @@ class PopularMoviesAdapter : ListAdapter<PopularMoviesItem, ViewHolder>(PopularM
 
     }
 
-    inner class LoadingViewHolder(binding: ListItemLoadingBinding) : ViewHolder(binding.root)
+    class LoadingViewHolder(binding: ListItemLoadingBinding) : ViewHolder(binding.root)
 
     interface CallBack {
         fun onItemClick(

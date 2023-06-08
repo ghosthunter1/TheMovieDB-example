@@ -22,16 +22,16 @@ class MoviesRepositoryImpl @Inject constructor(
 ) : MoviesRepository {
 
 
-    override fun getPopularMovies(page: Int): Flow<ApiResult<ResultModel>> {
+    override fun getPopularMovies(page: Int): Flow<ApiResult<List<MovieModel>>> {
 
-        return flow<ApiResult<ResultModel>> {
+        return flow<ApiResult<List<MovieModel>>> {
             emit(
                 ApiResult.ApiSuccess(
                     moviesMapper.convert(
                         moviesApi.getPopularMovies(
                             page
                         )
-                    )
+                    ).movies
                 )
             )
         }.onStart { emit(ApiResult.ApiLoading()) }

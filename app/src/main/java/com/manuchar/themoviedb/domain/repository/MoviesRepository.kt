@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface MoviesRepository {
 
-    fun getPopularMovies(page: Int): Flow<ApiResult<ResultModel>>
+    fun getPopularMovies(page: Int): Flow<ApiResult<List<MovieModel>>>
 
     fun getSimilarMovies(seriesId: Long): Flow<PagingData<MovieModel>>
 
