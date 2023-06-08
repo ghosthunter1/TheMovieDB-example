@@ -4,21 +4,18 @@ plugins {
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
     id "kotlin-parcelize"
-
 }
 
 android {
     namespace 'com.manuchar.themoviedb'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.manuchar.themoviedb"
         minSdk 24
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
-
-        compileSdkPreview = "UpsideDownCake"
 
         Properties properties = new Properties()
         properties.load(project.rootProject.file('gradle.properties').newDataInputStream())
@@ -56,27 +53,23 @@ kapt {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.8.0'
+    implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //dagger hilt
     implementation 'com.google.dagger:hilt-android:2.46.1'
-    implementation 'androidx.core:core-ktx:1.12.0-alpha04'
-    implementation 'androidx.core:core-ktx:1.10.1'
     kapt 'com.google.dagger:hilt-android-compiler:2.46.1'
     kapt "androidx.hilt:hilt-compiler:1.0.0"
-
 
     //retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:4.2.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
 
     //lifecycle
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.6.1"
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation "androidx.fragment:fragment-ktx:1.5.7"
 

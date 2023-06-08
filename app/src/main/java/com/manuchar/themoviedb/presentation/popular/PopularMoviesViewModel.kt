@@ -97,11 +97,12 @@ interface PopularMoviesViewModel {
             }
         }
 
-        private fun buildList(moviesResponse: ApiResult<List<MovieModel>>): List<PopularMoviesItem> {
-
-            return when (moviesResponse) {
+        private fun buildList(
+            moviesResponse: ApiResult<List<MovieModel>>
+        ): List<PopularMoviesItem> = with(moviesResponse) {
+            when (this) {
                 is ApiResult.ApiSuccess -> {
-                    movieUIMapper.convert(moviesResponse.data)
+                    data.map(movieUIMapper::convert)
                 }
 
                 is ApiResult.ApiLoading -> {

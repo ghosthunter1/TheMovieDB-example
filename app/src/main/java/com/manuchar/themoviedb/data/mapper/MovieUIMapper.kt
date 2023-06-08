@@ -6,16 +6,14 @@ import javax.inject.Inject
 
 class MovieUIMapper @Inject constructor() {
 
-    fun convert(movieList: List<MovieModel>) = with(movieList) {
-        map {
-            PopularMoviesItem.Item(
-                it.id,
-                it.overview,
-                it.imageUrl,
-                it.name,
-                it.averageRating
-            )
-        }
+    fun convert(movie: MovieModel) = with(movie) {
+        PopularMoviesItem.Item(
+            id,
+            overview,
+            imageUrl,
+            name,
+            averageRating
+        )
     }
 
 }
